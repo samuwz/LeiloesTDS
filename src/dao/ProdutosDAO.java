@@ -78,7 +78,7 @@ public class ProdutosDAO {
         String sql = "UPDATE produtos SET status=? WHERE id=?";
         try {
             prep = this.conn.prepareStatement(sql);
-            prep.setString(1, "VendidO");
+            prep.setString(1, "Vendido");
             prep.setInt(2, id);
             int linhaAfetada = prep.executeUpdate();
             if(linhaAfetada>0) {
@@ -92,7 +92,32 @@ public class ProdutosDAO {
             JOptionPane.showMessageDialog(null, "Erro ao vender produto.");
         }
     }
-
+    
+     public ArrayList<ProdutosDTO> listarProdutosVendidos(){
+        conn = new conectaDAO().connectDB();
+        String sql = "SELECT * FROM produtos WHERE status LIKE ?";
+        ArrayList<ProdutosDTO> listagemVendidos = new ArrayList<>();
+        try {
+            prep = this.conn.prepareStatement(sql);
+            prep.setString(1, "Vendido");
+            resultset = prep.executeQuery();
+            
+            while(resultset.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+                produto.setId(resultset.getInt("id"));
+                produto.setNome(resultset.getString("nome"));
+                produto.setValor(resultset.getInt("valor"));
+                produto.setStatus(resultset.getString("status"));
+                
+                listagemVendidos.add(produto);
+            }
+            return listagemVendidos;
+        }
+        catch(Exception e) {
+            return null;
+        }
+    }
+    
 }
 
 
