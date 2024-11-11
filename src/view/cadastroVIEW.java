@@ -3,6 +3,7 @@ package view;
 
 import dto.ProdutosDTO;
 import dao.ProdutosDAO;
+import javax.swing.JOptionPane;
 
 public class cadastroVIEW extends javax.swing.JFrame {
 
@@ -148,6 +149,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
         
+        JOptionPane.showMessageDialog(rootPane, "Produto cadastrado com sucesso!!");
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
