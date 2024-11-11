@@ -118,6 +118,31 @@ public class ProdutosDAO {
         }
     }
     
+     public ArrayList<ProdutosDTO> listarProdutosNaoVendidos(){
+        conn = new conectaDAO().connectDB();
+        String sql = "SELECT * FROM produtos WHERE status LIKE ?";
+        ArrayList<ProdutosDTO> listagemNaoVendidos = new ArrayList<>();
+        try {
+            prep = this.conn.prepareStatement(sql);
+            prep.setString(1, "A Venda");
+            resultset = prep.executeQuery();
+            
+            while(resultset.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+                produto.setId(resultset.getInt("id"));
+                produto.setNome(resultset.getString("nome"));
+                produto.setValor(resultset.getInt("valor"));
+                produto.setStatus(resultset.getString("status"));
+                
+                listagemNaoVendidos.add(produto);
+            }
+            return listagemNaoVendidos;
+        }
+        catch(Exception e) {
+            return null;
+        }
+    }
+    
 }
 
 
